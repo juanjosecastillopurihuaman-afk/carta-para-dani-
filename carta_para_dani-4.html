@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Dani 💗</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+    background: radial-gradient(circle at top, #fff1f5 0%, #ffd6e3 45%, #f7a9c0 100%);
+    color: #5b2333;
+  }
+
+  .scene {
+    width: min(92vw, 520px);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hint {
+    margin-bottom: 22px;
+    color: #7b3048;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: .3px;
+  }
+
+  .envelope {
+    width: min(82vw, 390px);
+    height: 250px;
+    margin: auto;
+    position: relative;
+    cursor: pointer;
+    perspective: 900px;
+    filter: drop-shadow(0 16px 18px rgba(115, 30, 60, .18));
+  }
+
+  .env-back, .env-front, .flap {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+  }
+
+  .env-back {
+    background: #fff7fa;
+    border: 2px solid #e99ab1;
+  }
+
+  .env-front {
+    background: linear-gradient(145deg, #fff8fb, #ffdbe7);
+    clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+    border: 2px solid #e99ab1;
+  }
+
+  .flap {
+    background: #ffeaf1;
+    border: 2px solid #e99ab1;
+    clip-path: polygon(0 0, 100% 0, 50% 62%);
+    transform-origin: top center;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1);
+    z-index: 4;
+  }
+
+  .seal {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -15%);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #e95c82;
+    color: white;
+    font-size: 27px;
+    box-shadow: 0 5px 12px rgba(160, 42, 80, .25);
+    transition: opacity .35s, transform .5s;
+  }
+
+  .letter {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 92%;
+    max-height: 226px;
+    overflow: auto;
+    transform: translateX(-50%) translateY(70px);
+    background: #fffdfd;
+    border-radius: 12px;
+    padding: 24px 22px;
+    box-shadow: 0 8px 22px rgba(100, 20, 45, .12);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1), opacity .7s;
+    z-index: 3;
+    text-align: left;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+
+  .letter-bear {
+    text-align: center;
+    font-size: 58px;
+    line-height: 1;
+    margin: 0 0 18px;
+    position: relative;
+    animation: bearPulse 1.8s ease-in-out infinite;
+  }
+
+  .letter-bear span {
+    display: inline-block;
+    font-size: 27px;
+    margin-left: -19px;
+    vertical-align: 15px;
+  }
+
+  @keyframes bearPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  .letter p { margin: 0 0 14px; }
+  .letter .final {
+    text-align: center;
+    font-weight: bold;
+    color: #d83d69;
+    font-size: 19px;
+    margin-top: 18px;
+  }
+
+  .bear {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(.4);
+    font-size: 94px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity .5s, transform .8s cubic-bezier(.2,1.4,.4,1);
+  }
+
+  .title {
+    opacity: 0;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #c73561;
+    transition: opacity .8s;
+  }
+
+  .heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 20;
+    animation: floatUp linear forwards;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0) scale(.7) rotate(0deg); opacity: 1; }
+    to { transform: translateY(-110vh) scale(1.35) rotate(25deg); opacity: 0; }
+  }
+
+  .opened .flap { transform: rotateX(180deg); z-index: 1; }
+  .opened .seal { opacity: 0; transform: translate(-50%, -15%) scale(.4); }
+  .opened .letter { opacity: 1; transform: translateX(-50%) translateY(-28px); z-index: 5; }
+  .opened .title { opacity: 1; }
+  .opened .bear { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+  @media (max-width: 430px) {
+    .envelope { height: 225px; }
+    .letter { font-size: 15px; padding: 19px 17px; max-height: 205px; }
+  }
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="hint" id="hint">Toca la carta para abrirla 💌</div>
+
+    <div class="envelope" id="envelope" aria-label="Abrir carta para Dani">
+      <div class="env-back"></div>
+
+      <div class="letter">
+        <div class="letter-bear">🧸<span>❤️</span></div>
+        <p>Dani, quería dejarte estas palabras de una manera especial. Te amo muchísimo y me haces sentir una felicidad que no siempre sé cómo explicar con palabras. Gracias por existir, por los momentos que compartimos y por cada sonrisa que me regalas.</p>
+
+        <p>Quiero que recuerdes siempre lo importante que eres para mí. Aunque a veces no te lo diga muy seguido, yo te amo muchísimo, y quiero que lo recuerdes siempre.</p>
+
+        <p>Esta carta es solo una pequeña forma de decirte algo muy grande: te amo muchísimo, Dani. ❤️</p>
+
+        <p class="final">¿Me perdonas? 💗</p>
+      </div>
+
+      <div class="flap"></div>
+      <div class="env-front"></div>
+      <div class="seal">♥</div>
+    </div>
+
+    <div class="title">Para Dani, con muchísimo amor 💗</div>
+  </div>
+
+  <div class="bear" id="bear">🧸</div>
+
+<script>
+  const envelope = document.getElementById("envelope");
+  const hint = document.getElementById("hint");
+  const bear = document.getElementById("bear");
+
+  function hearts() {
+    const symbols = ["❤", "💗", "💕", "💖", "💘"];
+    for (let i = 0; i < 24; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.top = (70 + Math.random() * 30) + "vh";
+      h.style.fontSize = (14 + Math.random() * 20) + "px";
+      h.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6500);
+    }
+  }
+
+  envelope.addEventListener("click", () => {
+    if (envelope.classList.contains("opened")) return;
+
+    envelope.classList.add("opened");
+    hint.textContent = "Una carta para ti, Dani ❤️";
+    hearts();
+
+    setTimeout(() => {
+      bear.style.opacity = "0";
+      setTimeout(() => bear.style.display = "none", 600);
+    }, 1800);
+  });
+</script>
+</body>
+</html>
